@@ -30,7 +30,6 @@
   MdeModulePkg/MdeModulePkg.dec
   EmbeddedPkg/EmbeddedPkg.dec
   Silicon/Qualcomm/QcomPkg/QcomPkg.dec
-  SimpleInit.dec
 
 [LibraryClasses]
   ArmLib
@@ -71,5 +70,3 @@
   gEmbeddedTokenSpaceGuid.PcdPrePiCpuIoSize
   gQcomTokenSpaceGuid.PcdUefiMemPoolBase
   gQcomTokenSpaceGuid.PcdUefiMemPoolSize
-  gSimpleInitTokenSpaceGuid.PcdDeviceTreeStore
-  gQcomTokenSpaceGuid.PcdLinuxUtilsCheckHallOnly

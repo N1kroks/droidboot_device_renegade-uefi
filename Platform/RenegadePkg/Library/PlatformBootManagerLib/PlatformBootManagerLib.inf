@@ -34,7 +34,6 @@
   MdePkg/MdePkg.dec
   ShellPkg/ShellPkg.dec
   Platform/RenegadePkg/RenegadePkg.dec
-  SimpleInit.dec
 
 [LibraryClasses]
   BaseLib
@@ -79,9 +78,7 @@
   gEfiEndOfDxeEventGroupGuid
   gEfiTtyTermGuid
   gUefiShellFileGuid
-  gLinuxSimpleMassStorageGuid
   gSwitchSlotsAppFileGuid
-  gSimpleInitFileGuid
 
 [Protocols]
   gEdkiiNonDiscoverableDeviceProtocolGuid

@@ -45,12 +45,6 @@
   gArmPlatformTokenSpaceGuid.PcdCoreCount|8
   gArmPlatformTokenSpaceGuid.PcdClusterCount|2
 
-  #
-  # SimpleInit
-  #
-  gSimpleInitTokenSpaceGuid.PcdDeviceTreeStore|0x83300000
-  gSimpleInitTokenSpaceGuid.PcdLoggerdUseConsole|FALSE
-
 [LibraryClasses.common]
 
   # Ported from SurfaceDuoPkg

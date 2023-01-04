@@ -30,7 +30,6 @@
   EmbeddedPkg/EmbeddedPkg.dec
   Platform/RenegadePkg/RenegadePkg.dec
   Silicon/Qualcomm/QcomPkg/QcomPkg.dec
-  SimpleInit.dec
 
 [LibraryClasses]
   ArmLib
@@ -43,7 +42,6 @@
   DebugLib
   PrintLib
   TimeBaseLib
-  SimpleInitLib
   SOCSmbiosInfoLib
 
 [Guids]
@@ -59,11 +57,9 @@
 
 [Protocols]
   gEfiSmbiosProtocolGuid                      # PROTOCOL ALWAYS_CONSUMED
-  gKernelFdtProtocolGuid
 
 [Guids]
 
 [Depex]
-  gEfiSmbiosProtocolGuid AND
-  gKernelFdtProtocolGuid
+  gEfiSmbiosProtocolGuid
 

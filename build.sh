@@ -12,9 +12,8 @@ function _help(){
 	echo "	--release MODE, -r MODE: Release mode for building, default is 'RELEASE', 'DEBUG' alternatively."
 	echo "	--toolchain TOOLCHAIN:   Set toolchain, default is 'CLANG38'."
 	echo "	--uart, -u:              compile with UART support, print debug messages to uart debug port."
-	echo " 	--skip-rootfs-gen:       skip generating SimpleInit rootfs to speed up building."
-	echo " 	--no-exception-disp:     do not display exception information in DEBUG builds."
-	echo "	--acpi, -A:              compile DSDT using MS asl with wine."
+	echo " 	--no-exception-disp:     do not display exception information in DEBUG builds"
+	echo "	--acpi, -A:              compile DSDT using MS asl with wine"
 	echo "	--clean, -C:             clean workspace and output."
 	echo "	--distclean, -D:         clean up all files that are not in repo."
 	echo "	--outputdir, -O:         output folder."
@@ -214,43 +213,41 @@ then
 	echo "Updating submodules"
 	if "${CHINESE}"
 	then
-		vim -u NONE -N .gitmodules -c "%s/github.com/hub.nuaa.cf/g" -c ":wq"
+		git submodule set-url GPLDrivers/Library/droidboot			    https://hub.nuaa.cf/Android-Boot-Manager/droidboot_gui.git
+
+		pushd GPLDrivers/Library/droidboot
+		git submodule set-url lib/ext4                                              https://hub.nuaa.cf/Android-Boot-Manager/droidboot_ext4
+		git submodule set-url lib/lvgl						    https://hub.nuaa.cf/Android-Boot-Manager/droidboot_lvgl
+		git submodule set-url lib/droidboot_platforms				    https://hub.nuaa.cf/Android-Boot-Manager/droidboot_platforms
+		git submodule set-url lib/libudft					    https://hub.nuaa.cf/Android-Boot-Manager/libufdt
+		git submodule set-url lib/minigz					    https://hub.nuaa.cf/Android-Boot-Manager/droidboot_minigz
+		popd
+
+		git submodule set-url Common/edk2                                           https://hub.nuaa.cf/tianocore/edk2.git
+		git submodule set-url Common/edk2-platforms                                 https://hub.nuaa.cf/tianocore/edk2-platforms.git
+		git submodule set-url Platform/EFI_Binaries                                 https://hub.nuaa.cf/edk2-porting/edk2-sdm845-binary.git
 		git submodule init;git submodule update --depth 1
 		pushd Common/edk2
-		vim -u NONE -N .gitmodules -c "%s/github.com/hub.nuaa.cf/g" -c ":wq"
-		git submodule init;git submodule update
-		pushd CryptoPkg/Library/OpensslLib/openssl
-		git submodule set-url boringssl https://hub.nuaa.cf/google/boringssl
-		vim -u NONE -N .gitmodules -c "%s/github.com/hub.nuaa.cf/g" -c ":wq"
-		git submodule init;git submodule update
-		git checkout .gitmodules
-		popd
-		git checkout .gitmodules
-		popd
-		pushd Common/edk2-platforms
-		vim -u NONE -N .gitmodules -c "%s/github.com/hub.nuaa.cf/g" -c ":wq"
+
+		git submodule set-url ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3   https://hub.nuaa.cf/ucb-bar/berkeley-softfloat-3.git
+		git submodule set-url CryptoPkg/Library/OpensslLib/openssl                  https://hub.nuaa.cf/openssl/openssl.git
+		git submodule set-url BaseTools/Source/C/BrotliCompress/brotli              https://hub.nuaa.cf/google/brotli.git
+		git submodule set-url UnitTestFrameworkPkg/Library/CmockaLib/cmocka         https://hub.nuaa.cf/tianocore/edk2-cmocka.git
+		git submodule set-url ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3   https://hub.nuaa.cf/ucb-bar/berkeley-softfloat-3.git
+		git submodule set-url MdeModulePkg/Library/BrotliCustomDecompressLib/brotli https://hub.nuaa.cf/google/brotli.git
+		git submodule set-url MdeModulePkg/Universal/RegularExpressionDxe/oniguruma https://hub.nuaa.cf/kkos/oniguruma.git
+		git submodule set-url RedfishPkg/Library/JsonLib/jansson                    https://hub.nuaa.cf/akheron/jansson.git
 		git submodule init;git submodule update
 		git checkout .gitmodules
 		popd
-		pushd GPLDrivers/Library/SimpleInit
-		git submodule set-url libs/freetype https://hub.nuaa.cf/freetype/freetype.git
-		vim -u NONE -N .gitmodules -c "%s/github.com/hub.nuaa.cf/g" -c ":wq"
-		git submodule init;git submodule update
-		popd
+
 		git checkout .gitmodules
-		git submodule init;git submodule update --recursive
 	else
 		git submodule init;git submodule update --depth 1
 		pushd Common/edk2
 		git submodule init;git submodule update
 		popd
-		pushd Common/edk2-platforms
-		git submodule init;git submodule update
-		popd
-		pushd GPLDrivers/Library/SimpleInit
-		git submodule init;git submodule update
-		popd
-		pushd tools/Installer
+		pushd GPLDrivers/Library/droidboot
 		git submodule init;git submodule update
 		popd
 	fi
@@ -272,45 +269,21 @@ do
 		break
 	fi
 done
-for i in "${SIMPLE_INIT}" GPLDrivers/Library/SimpleInit ./simple-init ../simple-init
-do
-	if [ -n "${i}" ]&&[ -f "${i}/SimpleInit.inc" ]
-	then
-		_SIMPLE_INIT="$(realpath "${i}")"
-		break
-	fi
-done
+
 [ -n "${_EDK2}" ]||_error "EDK2 not found, please see README.md"
 [ -n "${_EDK2_PLATFORMS}" ]||_error "EDK2 Platforms not found, please see README.md"
-[ -n "${_SIMPLE_INIT}" ]||_error "SimpleInit not found, please see README.md"
 [ -f "configs/devices/${DEVICE}.conf" ]||_error "Device configuration not found"
 echo "EDK2 Path: ${_EDK2}"
 echo "EDK2_PLATFORMS Path: ${_EDK2_PLATFORMS}"
 export CROSS_COMPILE="${CROSS_COMPILE:-aarch64-linux-gnu-}"
 export GCC5_AARCH64_PREFIX="${CROSS_COMPILE}"
 export CLANG38_AARCH64_PREFIX="${CROSS_COMPILE}"
-export PACKAGES_PATH="$_EDK2:$_EDK2_PLATFORMS:$_SIMPLE_INIT:$PWD:$PWD/GPLDrivers"
+export PACKAGES_PATH="$_EDK2:$_EDK2_PLATFORMS:$PWD:$PWD/GPLDrivers"
 export WORKSPACE="${OUTDIR}/workspace"
 GITCOMMIT="$(git describe --tags --always)"||GITCOMMIT="unknown"
 export GITCOMMIT
 echo > ramdisk
 set -e
-mkdir -p "${_SIMPLE_INIT}/build" "${_SIMPLE_INIT}/root/usr/share/locale"
-for i in "${_SIMPLE_INIT}/po/"*.po
-do
-	[ -f "${i}" ]||continue
-	_name="$(basename "$i" .po)"
-	_path="${_SIMPLE_INIT}/root/usr/share/locale/${_name}/LC_MESSAGES"
-	mkdir -p "${_path}"
-	msgfmt -o "${_path}/simple-init.mo" "${i}"
-done
-
-if "${GEN_ROOTFS}"
-then
-	 bash "${_SIMPLE_INIT}/scripts/gen-rootfs-source.sh" \
-		"${_SIMPLE_INIT}" \
-		"${_SIMPLE_INIT}/build"
-fi
 
 if [ "${DEVICE}" == "all" ]
 then

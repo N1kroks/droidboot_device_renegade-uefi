@@ -201,13 +201,11 @@ READ_LOCK_STATUS   = TRUE
   # Windows kernel patcher
   #
   INF Platform/RenegadePkg/Drivers/KernelErrataPatcher/KernelErrataPatcher.inf
-  
-  #
-  # Simple Init GUI
-  #
-  INF src/main/SimpleInitMain.inf
 
   INF src/kernelfdt/KernelFdtDxe.inf
+  # INF GPLDrivers/Drivers/BootSlotDxe/BootSlotDxe.inf
+  # INF GPLDrivers/Application/SwitchSlotsApp/SwitchSlotsApp.inf
+
 
 !if $(AB_SLOTS_SUPPORT) == TRUE
   INF GPLDrivers/Drivers/BootSlotDxe/BootSlotDxe.inf
