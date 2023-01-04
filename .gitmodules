@@ -9,3 +9,6 @@
 [submodule "Platform/EFI_Binaries"]
 	path = Platform/EFI_Binaries
 	url = https://github.com/edk2-porting/edk2-msm-binary.git
+[submodule "GPLDrivers/Library/droidboot"]
+	path = GPLDrivers/Library/droidboot
+	url = https://github.com/Android-Boot-Manager/droidboot_gui
