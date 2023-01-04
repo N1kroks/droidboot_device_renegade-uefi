@@ -440,7 +440,7 @@ VOID PlatformRegisterOptionsAndKeys(VOID)
   ASSERT_EFI_ERROR(Status);
 
   //
-  // Map UP and ESC to Boot Manager Menu or SimpleInitGUI
+  // Map UP and ESC to Boot Manager Menu or droidboot
   //
   UP.ScanCode     = SCAN_UP;
   UP.UnicodeChar  = CHAR_NULL;
@@ -448,19 +448,20 @@ VOID PlatformRegisterOptionsAndKeys(VOID)
   Esc.UnicodeChar = CHAR_NULL;
   Status          = EfiBootManagerGetBootManagerMenu(&BootOption);
   ASSERT_EFI_ERROR(Status);
-#ifdef ENABLE_SIMPLE_INIT
+// TODO: add droidboot register here
+//#ifdef ENABLE_SIMPLE_INIT
 
   //
   // Register Simple Init GUI APP
   //
-  UINT16 OptionSimpleInit = PlatformRegisterFvBootOption(
-      &gSimpleInitFileGuid, L"Simple Init", LOAD_OPTION_ACTIVE);
-  Status = EfiBootManagerAddKeyOptionVariable(
-      NULL, (UINT16)OptionSimpleInit, 0, &UP, NULL);
-#else
+ // UINT16 OptionSimpleInit = PlatformRegisterFvBootOption(
+  //    &gSimpleInitFileGuid, L"Simple Init", LOAD_OPTION_ACTIVE);
+  //Status = EfiBootManagerAddKeyOptionVariable(
+  //    NULL, (UINT16)OptionSimpleInit, 0, &UP, NULL);
+//#else
   Status = EfiBootManagerAddKeyOptionVariable(
       NULL, (UINT16)BootOption.OptionNumber, 0, &UP, NULL);
-#endif
+//#endif
   ASSERT(Status == EFI_SUCCESS || Status == EFI_ALREADY_STARTED);
 }
 
@@ -677,14 +678,6 @@ VOID EFIAPI PlatformBootManagerAfterConsole(VOID)
   //
   PlatformRegisterFvBootOption(
       &gUefiShellFileGuid, L"UEFI Shell", LOAD_OPTION_ACTIVE);
-
-#ifdef ENABLE_LINUX_SIMPLE_MASS_STORAGE
-  //
-  // Register Built-in Linux Kernel
-  //
-  PlatformRegisterFvBootOption(
-      &gLinuxSimpleMassStorageGuid, L"USB Attached SCSI (UAS) Storage", LOAD_OPTION_ACTIVE);
-#endif
 
 #ifdef AB_SLOTS_SUPPORT
   //

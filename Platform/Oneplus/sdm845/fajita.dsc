@@ -24,9 +24,6 @@
   gQcomTokenSpaceGuid.PcdMipiFrameBufferWidth|1080
   gQcomTokenSpaceGuid.PcdMipiFrameBufferHeight|2340
 
-  # Simple Init
-  gSimpleInitTokenSpaceGuid.PcdGuiDefaultDPI|440
-
   gRenegadePkgTokenSpaceGuid.PcdDeviceVendor|"Oneplus"
   gRenegadePkgTokenSpaceGuid.PcdDeviceProduct|"6T"
   gRenegadePkgTokenSpaceGuid.PcdDeviceCodeName|"fajita"

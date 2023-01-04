@@ -201,13 +201,6 @@ READ_LOCK_STATUS   = TRUE
   # Windows kernel patcher
   #
   INF Platform/RenegadePkg/Drivers/KernelErrataPatcher/KernelErrataPatcher.inf
-  
-  #
-  # Simple Init GUI
-  #
-  INF src/main/SimpleInitMain.inf
-
-  INF src/kernelfdt/KernelFdtDxe.inf
 
 # Device specific fdf
 !include $(DEVICE_DXE_FV_COMPONENTS)

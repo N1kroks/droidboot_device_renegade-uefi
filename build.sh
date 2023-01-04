@@ -12,7 +12,6 @@ function _help(){
 	echo "	--release MODE, -r MODE: Release mode for building, default is 'RELEASE', 'DEBUG' alternatively."
 	echo "	--toolchain TOOLCHAIN:   Set toolchain, default is 'CLANG38'."
 	echo "	--uart, -u:              compile with UART support, print debug messages to uart debug port."
-	echo " 	--skip-rootfs-gen:       skip generating SimpleInit rootfs to speed up building."
 	echo " 	--no-exception-disp:     do not display exception information in DEBUG builds"
 	echo "	--acpi, -A:              compile DSDT using MS asl with wine"
 	echo "	--clean, -C:             clean workspace and output."
@@ -194,7 +193,6 @@ then
 		git submodule set-url Common/edk2                                           https://hub.nuaa.cf/tianocore/edk2.git
 		git submodule set-url Common/edk2-platforms                                 https://hub.nuaa.cf/tianocore/edk2-platforms.git
 		git submodule set-url Platform/EFI_Binaries                                 https://hub.nuaa.cf/edk2-porting/edk2-sdm845-binary.git
-		git submodule set-url GPLDrivers/Library/SimpleInit               			https://hub.nuaa.cf/BigfootACA/simple-init.git
 		git submodule init;git submodule update --depth 1
 		pushd Common/edk2
 
@@ -209,18 +207,11 @@ then
 		git submodule init;git submodule update
 		git checkout .gitmodules
 		popd
-		pushd GPLDrivers/Library/SimpleInit
-		git submodule set-url libs/lvgl     https://hub.nuaa.cf/lvgl/lvgl.git
-		git submodule set-url libs/freetype https://hub.nuaa.cf/freetype/freetype.git
-		git submodule init;git submodule update
-		popd
+
 		git checkout .gitmodules
 	else
 		git submodule init;git submodule update --depth 1
 		pushd Common/edk2
-		git submodule init;git submodule update
-		popd
-		pushd GPLDrivers/Library/SimpleInit
 		git submodule init;git submodule update
 		popd
 	fi
@@ -242,45 +233,21 @@ do
 		break
 	fi
 done
-for i in "${SIMPLE_INIT}" GPLDrivers/Library/SimpleInit ./simple-init ../simple-init
-do
-	if [ -n "${i}" ]&&[ -f "${i}/SimpleInit.inc" ]
-	then
-		_SIMPLE_INIT="$(realpath "${i}")"
-		break
-	fi
-done
+
 [ -n "${_EDK2}" ]||_error "EDK2 not found, please see README.md"
 [ -n "${_EDK2_PLATFORMS}" ]||_error "EDK2 Platforms not found, please see README.md"
-[ -n "${_SIMPLE_INIT}" ]||_error "SimpleInit not found, please see README.md"
 [ -f "configs/devices/${DEVICE}.conf" ]||_error "Device configuration not found"
 echo "EDK2 Path: ${_EDK2}"
 echo "EDK2_PLATFORMS Path: ${_EDK2_PLATFORMS}"
 export CROSS_COMPILE="${CROSS_COMPILE:-aarch64-linux-gnu-}"
 export GCC5_AARCH64_PREFIX="${CROSS_COMPILE}"
 export CLANG38_AARCH64_PREFIX="${CROSS_COMPILE}"
-export PACKAGES_PATH="$_EDK2:$_EDK2_PLATFORMS:$_SIMPLE_INIT:$PWD:$PWD/GPLDrivers"
+export PACKAGES_PATH="$_EDK2:$_EDK2_PLATFORMS:$PWD:$PWD/GPLDrivers"
 export WORKSPACE="${OUTDIR}/workspace"
 GITCOMMIT="$(git describe --tags --always)"||GITCOMMIT="unknown"
 export GITCOMMIT
 echo > ramdisk
 set -e
-mkdir -p "${_SIMPLE_INIT}/build" "${_SIMPLE_INIT}/root/usr/share/locale"
-for i in "${_SIMPLE_INIT}/po/"*.po
-do
-	[ -f "${i}" ]||continue
-	_name="$(basename "$i" .po)"
-	_path="${_SIMPLE_INIT}/root/usr/share/locale/${_name}/LC_MESSAGES"
-	mkdir -p "${_path}"
-	msgfmt -o "${_path}/simple-init.mo" "${i}"
-done
-
-if "${GEN_ROOTFS}"
-then
-	 bash "${_SIMPLE_INIT}/scripts/gen-rootfs-source.sh" \
-		"${_SIMPLE_INIT}" \
-		"${_SIMPLE_INIT}/build"
-fi
 
 if [ "${DEVICE}" == "all" ]
 then
