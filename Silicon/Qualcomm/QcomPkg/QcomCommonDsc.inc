@@ -141,6 +141,7 @@
   gEfiMdeModulePkgTokenSpaceGuid.PcdMaxVariableSize|0x2000
 
 !include MdePkg/MdeLibs.dsc.inc
+!include droidboot.inc
 
 [LibraryClasses.common]
   ArmLib|ArmPkg/Library/ArmLib/ArmBaseLib.inf

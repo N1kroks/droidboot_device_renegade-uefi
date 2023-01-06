@@ -24,22 +24,25 @@
   ArmPkg/ArmPkg.dec
   ArmPlatformPkg/ArmPlatformPkg.dec
   Silicon/Qualcomm/QcomPkg/QcomPkg.dec
+  droidboot.dec
 
 [LibraryClasses]
   DebugLib
   HobLib
   ArmMmuLib
   PlatformMemoryMapLib
+  droidbootRenegadeLib
 
 [Guids]
   gEfiMemoryTypeInformationGuid
-
+  
 [FeaturePcd]
   gEmbeddedTokenSpaceGuid.PcdPrePiProduceMemoryTypeInformationHob
 
 [FixedPcd]
   gArmTokenSpaceGuid.PcdSystemMemoryBase
   gArmTokenSpaceGuid.PcdSystemMemorySize
+  gdroidbootTokenSpaceGuid.PcdDeviceTreeStore
 
 [Depex]
   TRUE
