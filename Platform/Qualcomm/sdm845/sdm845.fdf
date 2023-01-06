@@ -202,6 +202,11 @@ READ_LOCK_STATUS   = TRUE
   #
   INF Platform/RenegadePkg/Drivers/KernelErrataPatcher/KernelErrataPatcher.inf
 
+  #
+  # Droidboot
+  #
+  INF droidboot_platforms/uefi/common_linuxloader/kernelfdt/KernelFdtDxe.inf
+
 # Device specific fdf
 !include $(DEVICE_DXE_FV_COMPONENTS)
 

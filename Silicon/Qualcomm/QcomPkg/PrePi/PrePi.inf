@@ -30,6 +30,7 @@
   MdeModulePkg/MdeModulePkg.dec
   EmbeddedPkg/EmbeddedPkg.dec
   Silicon/Qualcomm/QcomPkg/QcomPkg.dec
+  droidboot.dec
 
 [LibraryClasses]
   ArmLib
@@ -69,3 +70,4 @@
   gEmbeddedTokenSpaceGuid.PcdPrePiCpuIoSize
   gQcomTokenSpaceGuid.PcdUefiMemPoolBase
   gQcomTokenSpaceGuid.PcdUefiMemPoolSize
+  gdroidbootTokenSpaceGuid.PcdDeviceTreeStore

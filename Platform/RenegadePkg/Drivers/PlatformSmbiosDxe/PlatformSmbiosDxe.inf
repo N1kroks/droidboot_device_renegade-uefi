@@ -30,6 +30,7 @@
   EmbeddedPkg/EmbeddedPkg.dec
   Platform/RenegadePkg/RenegadePkg.dec
   Silicon/Qualcomm/QcomPkg/QcomPkg.dec
+  droidboot.dec
 
 [LibraryClasses]
   ArmLib
@@ -42,6 +43,7 @@
   DebugLib
   PrintLib
   TimeBaseLib
+  droidbootRenegadeLib
   SOCSmbiosInfoLib
 
 [Guids]
@@ -57,9 +59,11 @@
 
 [Protocols]
   gEfiSmbiosProtocolGuid                      # PROTOCOL ALWAYS_CONSUMED
+  gKernelFdtProtocolGuid
 
 [Guids]
 
 [Depex]
-  gEfiSmbiosProtocolGuid
+  gEfiSmbiosProtocolGuid AND
+  gKernelFdtProtocolGuid
 

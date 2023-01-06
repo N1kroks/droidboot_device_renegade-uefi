@@ -45,6 +45,11 @@
   gArmPlatformTokenSpaceGuid.PcdCoreCount|8
   gArmPlatformTokenSpaceGuid.PcdClusterCount|2
 
+  #
+  # Droidboot
+  #
+  gdroidbootTokenSpaceGuid.PcdDeviceTreeStore|0x83300000
+
 [LibraryClasses.common]
 !if $(USE_UART) == 1
   SerialPortLib|Silicon/Qualcomm/QcomPkg/Library/QcomGeniSerialPortLib/QcomGeniSerialPortLib.inf

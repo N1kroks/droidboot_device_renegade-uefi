@@ -233,7 +233,14 @@ do
 		break
 	fi
 done
-
+for i in "${DROIDBOOT}" GPLDrivers/Library/droidboot ./droidboot ../droidboot
+do
+	if [ -n "${i}" ]&&[ -f "${i}/droidboot.inc" ]
+	then
+		_DROIDBOOT="$(realpath "${i}")"
+		break
+	fi
+done
 [ -n "${_EDK2}" ]||_error "EDK2 not found, please see README.md"
 [ -n "${_EDK2_PLATFORMS}" ]||_error "EDK2 Platforms not found, please see README.md"
 [ -f "configs/devices/${DEVICE}.conf" ]||_error "Device configuration not found"
@@ -242,7 +249,7 @@ echo "EDK2_PLATFORMS Path: ${_EDK2_PLATFORMS}"
 export CROSS_COMPILE="${CROSS_COMPILE:-aarch64-linux-gnu-}"
 export GCC5_AARCH64_PREFIX="${CROSS_COMPILE}"
 export CLANG38_AARCH64_PREFIX="${CROSS_COMPILE}"
-export PACKAGES_PATH="$_EDK2:$_EDK2_PLATFORMS:$PWD:$PWD/GPLDrivers"
+export PACKAGES_PATH="$_EDK2:$_EDK2_PLATFORMS:$_DROIDBOOT:$PWD:$PWD/GPLDrivers"
 export WORKSPACE="${OUTDIR}/workspace"
 GITCOMMIT="$(git describe --tags --always)"||GITCOMMIT="unknown"
 export GITCOMMIT
