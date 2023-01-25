@@ -206,6 +206,7 @@ READ_LOCK_STATUS   = TRUE
   # Droidboot
   #
   INF droidboot_platforms/uefi/common_linuxloader/kernelfdt/KernelFdtDxe.inf
+  INF droidboot_platforms/uefi/common/uefi-wrapper/UefiWrapper.inf
 
 # Device specific fdf
 !include $(DEVICE_DXE_FV_COMPONENTS)
