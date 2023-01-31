@@ -205,6 +205,10 @@ READ_LOCK_STATUS   = TRUE
   INF src/kernelfdt/KernelFdtDxe.inf
   # INF GPLDrivers/Drivers/BootSlotDxe/BootSlotDxe.inf
   # INF GPLDrivers/Application/SwitchSlotsApp/SwitchSlotsApp.inf
+#
+  # Droidboot
+  #
+  INF droidboot_platforms/uefi/common_linuxloader/kernelfdt/KernelFdtDxe.inf
 
 
 !if $(AB_SLOTS_SUPPORT) == TRUE
