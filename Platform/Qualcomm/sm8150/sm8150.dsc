@@ -47,11 +47,7 @@
   gArmPlatformTokenSpaceGuid.PcdCoreCount|8
   gArmPlatformTokenSpaceGuid.PcdClusterCount|3
 
-  #
-  # SimpleInit
-  #
-  gSimpleInitTokenSpaceGuid.PcdDeviceTreeStore|0x9E000000
-  gSimpleInitTokenSpaceGuid.PcdLoggerdUseConsole|FALSE
+  gdroidbootTokenSpaceGuid.PcdDeviceTreeStore|0x9E000000
 
 [LibraryClasses.common]
 !if $(USE_UART) == 1

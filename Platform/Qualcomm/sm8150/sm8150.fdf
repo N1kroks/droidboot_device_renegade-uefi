@@ -204,6 +204,10 @@ READ_LOCK_STATUS   = TRUE
 
   # INF GPLDrivers/Drivers/BootSlotDxe/BootSlotDxe.inf
   # INF GPLDrivers/Application/SwitchSlotsApp/SwitchSlotsApp.inf
+#
+  # Droidboot
+  #
+  INF droidboot_platforms/uefi/common_linuxloader/kernelfdt/KernelFdtDxe.inf
 
 # Device specific fdf
 !include $(DEVICE_DXE_FV_COMPONENTS)

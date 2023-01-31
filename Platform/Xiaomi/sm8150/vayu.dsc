@@ -20,9 +20,6 @@
   gQcomTokenSpaceGuid.PcdMipiFrameBufferWidth|1080
   gQcomTokenSpaceGuid.PcdMipiFrameBufferHeight|2400
 
-  # Simple Init
-  gSimpleInitTokenSpaceGuid.PcdGuiDefaultDPI|320
-
   gRenegadePkgTokenSpaceGuid.PcdDeviceVendor|"Xiaomi"
   gRenegadePkgTokenSpaceGuid.PcdDeviceProduct|"Poco X3 Pro"
   gRenegadePkgTokenSpaceGuid.PcdDeviceCodeName|"vayu"
