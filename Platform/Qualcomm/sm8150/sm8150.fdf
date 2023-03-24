@@ -209,6 +209,7 @@ READ_LOCK_STATUS   = TRUE
   # Droidboot
   #
   INF droidboot_platforms/uefi/common_linuxloader/kernelfdt/KernelFdtDxe.inf
+  INF droidboot_platforms/uefi/common/uefi-wrapper/UefiWrapper.inf
 
 
 !if $(AB_SLOTS_SUPPORT) == TRUE
