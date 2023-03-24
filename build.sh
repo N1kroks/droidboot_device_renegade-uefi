@@ -19,6 +19,7 @@ function _help(){
 	echo "	--outputdir, -O:         output folder."
 	echo "	--boot, -b:              fastboot boot image."
 	echo "	--fixclang, -f:          fix build using Clang by suppressing -Os flag."
+	echo "	--installer-zip, -z:     generate flashable installer zip."
 	echo "	--help, -h:              show this help."
 	echo
 	echo "MainPage: https://github.com/edk2-porting/edk2-msm"
@@ -65,6 +66,11 @@ function _build(){
 	# for overriding config
 	source "configs/devices/${DEVICE}.conf"
 
+	if "${GEN_INSTALLER_ZIP}"
+	then
+		export ENABLE_LINUX_UTILS=1
+	fi
+
 	_load_platform_hooks Platform/platform.sh.inc
 	_load_platform_hooks Silicon/platform.sh.inc
 	_load_platform_hooks "Silicon/${SOC_VENDOR}/platform.sh.inc"
@@ -110,11 +116,12 @@ function _build(){
 
 	echo "Building BootShim"
 	pushd "${ROOTDIR}/tools/BootShim"
-	rm -f BootShim.bin BootShim.elf
+	rm -f BootShim.bin BootShim.elf BootShim.Dualboot.bin BootShim.Dualboot.elf
 	make UEFI_BASE=${FD_BASE} UEFI_SIZE=${FD_SIZE}
 	popd
 
 	_call_hook platform_pre_build||return "$?"
+	mkdir -p "${ROOTDIR}/Common/edk2/Conf"
 	cp "${ROOTDIR}/tools/"{build_rule.txt,tools_def.txt} "${ROOTDIR}/Common/edk2/Conf/"
 	build \
 		-s \
@@ -128,14 +135,28 @@ function _build(){
 		-D FIX_CLANG="${FIX_CLANG}" \
 		-D NO_EXCEPTION_DISPLAY="${NO_EXCEPTION_DISPLAY}" \
 		-D FD_BASE="${FD_BASE}" -D FD_SIZE="${FD_SIZE}" \
+		-D ENABLE_LINUX_UTILS="${ENABLE_LINUX_UTILS}" \
 		||return "$?"
 	_call_hook platform_build_kernel||return "$?"
 	_call_hook platform_build_bootimg||return "$?"
 	echo "Build done: ${OUTDIR}/boot-${DEVICE}${EXT}.img"
+
+	if "${GEN_INSTALLER_ZIP}"
+	then
+		cp "${WORKSPACE}/Build/${DEVICE}/${_MODE}_${TOOLCHAIN}/FV/${SOC_PLATFORM}_UEFI.fd" "${ROOTDIR}/tools/Installer/${DEVICE}_UEFI.fd"
+		cp "${ROOTDIR}/tools/BootShim/BootShim.Dualboot.bin" "${ROOTDIR}/tools/Installer/BootShim.Dualboot.bin"
+		pushd "${ROOTDIR}/tools/Installer/"
+		./pack.sh
+		popd
+		mv "${ROOTDIR}/tools/Installer/installer.zip" "${OUTDIR}/uefi-installer-${DEVICE}${EXT}.zip"
+		rm -f "${ROOTDIR}/tools/Installer/${DEVICE}_UEFI.fd"
+		rm -f "${ROOTDIR}/tools/Installer/BootShim.Dualboot.bin"
+		echo "Pack done: ${OUTDIR}/uefi-installer-${DEVICE}${EXT}.zip"
+	fi
 	set +x
 }
 
-function _clean(){ rm --one-file-system --recursive --force "${WORKSPACE}"./workspace "${OUTDIR}"/boot-*.img "${OUTDIR}"/uefi-*.img*; }
+function _clean(){ rm --one-file-system --recursive --force "${WORKSPACE}"./workspace "${OUTDIR}"/boot-*.img "${OUTDIR}"/uefi-installer-*.zip "${OUTDIR}"/uefi-*.img*; }
 
 function _distclean(){ if [ -d .git ];then git clean -xdf;else _clean;fi; }
 
@@ -157,8 +178,9 @@ NO_EXCEPTION_DISPLAY=0
 export ROOTDIR OUTDIR SOC_VENDOR
 export GEN_ACPI=false
 export GEN_ROOTFS=true
+export GEN_INSTALLER_ZIP=false
 export FASTBOOT=false
-OPTS="$(getopt -o t:d:hfabcACDO:r:u -l toolchain:,device:,help,fixclang,all,boot,chinese,acpi,skip-rootfs-gen,no-exception-disp,uart,clean,distclean,outputdir:,release: -n 'build.sh' -- "$@")"||exit 1
+OPTS="$(getopt -o t:d:hfabczACDO:r:u -l toolchain:,device:,help,fixclang,all,boot,chinese,acpi,skip-rootfs-gen,no-exception-disp,installer-zip,uart,clean,distclean,outputdir:,release: -n 'build.sh' -- "$@")"||exit 1
 eval set -- "${OPTS}"
 while true
 do	case "${1}" in
@@ -176,6 +198,7 @@ do	case "${1}" in
 		-t|--toolchain) TOOLCHAIN="${2}";shift 2;;
 		-u|--uart) USE_UART=1;shift;;
 		-f|--fixclang) FIX_CLANG=1;shift;;
+		-z|--installer-zip) GEN_INSTALLER_ZIP=true;ENABLE_LINUX_UTILS=1;shift;;
 		-h|--help) _help 0;shift;;
 		--) shift;break;;
 		*) _help 1;;

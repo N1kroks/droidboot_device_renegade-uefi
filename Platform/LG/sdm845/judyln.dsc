@@ -1,4 +1,5 @@
 [Defines]
+  VENDOR_NAME                    = LG
   PLATFORM_NAME                  = judyln
   PLATFORM_GUID                  = 28f1a3bf-193a-47e3-a7b9-5a435eaab2ee
   PLATFORM_VERSION               = 0.1
@@ -11,12 +12,12 @@
   DEVICE_DXE_FV_COMPONENTS       = Platform/LG/sdm845/judyln.fdf.inc
   
   # Enable A/B Slot Environment
-  DEFINE AB_SLOTS_SUPPORT        = TRUE
+  AB_SLOTS_SUPPORT               = TRUE
 
 !include Platform/Qualcomm/sdm845/sdm845.dsc
 
 [BuildOptions.common]
-  GCC:*_*_AARCH64_CC_FLAGS = -DLG_PIL_FIXED=1 -DAB_SLOTS_SUPPORT=1 -DENABLE_SIMPLE_INIT -DENABLE_LINUX_SIMPLE_MASS_STORAGE
+  GCC:*_*_AARCH64_CC_FLAGS = -DLG_PIL_FIXED=1  -DENABLE_SIMPLE_INIT -DENABLE_LINUX_SIMPLE_MASS_STORAGE
 
 [PcdsFixedAtBuild.common]
 

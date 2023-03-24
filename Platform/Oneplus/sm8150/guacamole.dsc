@@ -1,4 +1,5 @@
 [Defines]
+  VENDOR_NAME                    = Oneplus
   PLATFORM_NAME                  = guacamole
   PLATFORM_GUID                  = 28f1a3bf-193a-47e3-a7b9-5a435eaab2ee
   PLATFORM_VERSION               = 0.1
@@ -9,7 +10,6 @@
   SKUID_IDENTIFIER               = DEFAULT
   FLASH_DEFINITION               = Platform/Qualcomm/sm8150/sm8150.fdf
   DEVICE_DXE_FV_COMPONENTS       = Platform/Oneplus/sm8150/guacamole.fdf.inc
-  # DEFINE AB_SLOTS_SUPPORT        = TRUE
 
 !include Platform/Qualcomm/sm8150/sm8150.dsc
 

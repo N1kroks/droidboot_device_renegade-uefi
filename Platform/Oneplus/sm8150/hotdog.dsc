@@ -1,4 +1,5 @@
 [Defines]
+  VENDOR_NAME                    = Oneplus
   PLATFORM_NAME                  = hotdog
   PLATFORM_GUID                  = 28f1a3bf-193a-47e3-a7b9-5a435eaab2ee
   PLATFORM_VERSION               = 0.1
@@ -25,3 +26,5 @@
   gRenegadePkgTokenSpaceGuid.PcdDeviceVendor|"OnePlus"
   gRenegadePkgTokenSpaceGuid.PcdDeviceProduct|"7T Pro"
   gRenegadePkgTokenSpaceGuid.PcdDeviceCodeName|"hotdog"
+
+  gsm8150PkgTokenSpaceGuid.PcdSmbiosProcessorModel|"Snapdragon (TM) 855 Plus @ 2.96 GHz"
