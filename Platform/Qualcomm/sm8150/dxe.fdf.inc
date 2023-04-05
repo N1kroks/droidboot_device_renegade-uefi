@@ -65,11 +65,11 @@
     SECTION UI = "ShmBridgeDxe"
   }
 
-  FILE DRIVER = 2d7a83e3-e343-4ffb-9109-631f2ee11694 {
-    SECTION DXE_DEPEX = Platform/EFI_Binaries/Drivers/sm8150/ScmDxe/ScmDxe.depex
-    SECTION PE32 = Platform/EFI_Binaries/Drivers/sm8150/ScmDxe/ScmDxe.efi
-    SECTION UI = "ScmDxe"
-  }
+#  FILE DRIVER = 2d7a83e3-e343-4ffb-9109-631f2ee11694 {
+#    SECTION DXE_DEPEX = Platform/EFI_Binaries/Drivers/sm8150/ScmDxe/ScmDxe.depex
+#    SECTION PE32 = Platform/EFI_Binaries/Drivers/sm8150/ScmDxe/ScmDxe.efi
+#    SECTION UI = "ScmDxe"
+#  }
 
   FILE DRIVER = 6b38f7b4-ad98-40e9-9093-aca2b5a253c4 {
     SECTION PE32 = Platform/EFI_Binaries/Drivers/sm8150/DiskIoDxe/DiskIoDxe.efi
