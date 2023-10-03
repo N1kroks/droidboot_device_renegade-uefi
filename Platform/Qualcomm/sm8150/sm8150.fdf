@@ -202,10 +202,9 @@ READ_LOCK_STATUS   = TRUE
   #
   INF Platform/RenegadePkg/Drivers/KernelErrataPatcher/KernelErrataPatcher.inf
 
-  INF src/kernelfdt/KernelFdtDxe.inf
   # INF GPLDrivers/Drivers/BootSlotDxe/BootSlotDxe.inf
   # INF GPLDrivers/Application/SwitchSlotsApp/SwitchSlotsApp.inf
-#
+  #
   # Droidboot
   #
   INF droidboot_platforms/uefi/common_linuxloader/kernelfdt/KernelFdtDxe.inf
