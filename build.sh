@@ -231,6 +231,7 @@ then
 	fi
 	set +e
 fi
+
 for i in "${EDK2}" ./Common/edk2 ../edk2
 do
 	if [ -n "${i}" ]&&[ -f "${i}/edksetup.sh" ]
