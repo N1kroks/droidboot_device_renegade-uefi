@@ -89,12 +89,6 @@
     SECTION UI = "RpmhDxe"
   }
 
-  FILE DRIVER = 2d7a83e3-e343-4ffb-9109-631f2ee11694 {
-    SECTION DXE_DEPEX = Platform/EFI_Binaries/Drivers/sm8250/ScmDxe/ScmDxe.depex
-    SECTION PE32 = Platform/EFI_Binaries/Drivers/sm8250/ScmDxe/ScmDxe.efi
-    SECTION UI = "ScmDxe"
-  }
-
   FILE DRIVER = 9c1eb71f-dd6c-4ed5-9f6a-5cc0ca789f16 {
     SECTION DXE_DEPEX = Platform/EFI_Binaries/Drivers/sm8250/ShmBridgeDxe/ShmBridgeDxe.depex
     SECTION PE32 = Platform/EFI_Binaries/Drivers/sm8250/ShmBridgeDxe/ShmBridgeDxe.efi
@@ -111,12 +105,6 @@
     SECTION DXE_DEPEX = Platform/EFI_Binaries/Drivers/sm8250/SPMI/SPMI.depex
     SECTION PE32 = Platform/EFI_Binaries/Drivers/sm8250/SPMI/SPMI.efi
     SECTION UI = "SPMI"
-  }
-
-  FILE DRIVER = 6925fad3-e243-4b69-ad61-3f978c8abc60 {
-    SECTION DXE_DEPEX = Platform/EFI_Binaries/Drivers/sm8250/TzDxe/TzDxe.depex
-    SECTION PE32 = Platform/EFI_Binaries/Drivers/sm8250/TzDxe/TzDxe.efi
-    SECTION UI = "TzDxe"
   }
 
   FILE DRIVER = 0d35cd8e-97ea-4f9a-96af-0f0d89f76567 {
