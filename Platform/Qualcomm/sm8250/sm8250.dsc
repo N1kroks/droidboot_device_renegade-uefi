@@ -48,8 +48,7 @@
   #
   # SimpleInit
   #
-  gSimpleInitTokenSpaceGuid.PcdDeviceTreeStore|0x80650000
-  gSimpleInitTokenSpaceGuid.PcdLoggerdUseConsole|FALSE
+  gdroidbootTokenSpaceGuid.PcdDeviceTreeStore|0x80650000
 
 [LibraryClasses.common]
 

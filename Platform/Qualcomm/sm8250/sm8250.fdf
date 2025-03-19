@@ -198,11 +198,10 @@ READ_LOCK_STATUS   = TRUE
   INF Platform/RenegadePkg/Drivers/LogoDxe/LogoDxe.inf
 
   #
-  # Simple Init GUI
+  # Droidboot
   #
-  INF src/main/SimpleInitMain.inf
-
-  INF src/kernelfdt/KernelFdtDxe.inf
+  INF droidboot_platforms/uefi/common_linuxloader/kernelfdt/KernelFdtDxe.inf
+  INF droidboot_platforms/uefi/common/uefi-wrapper/UefiWrapper.inf
 
 !if $(AB_SLOTS_SUPPORT) == TRUE
   INF GPLDrivers/Drivers/BootSlotDxe/BootSlotDxe.inf

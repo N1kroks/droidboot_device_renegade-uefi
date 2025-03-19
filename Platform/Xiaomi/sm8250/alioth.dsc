@@ -20,9 +20,6 @@
   gQcomTokenSpaceGuid.PcdMipiFrameBufferWidth|1080
   gQcomTokenSpaceGuid.PcdMipiFrameBufferHeight|2400
 
-  # Simple Init
-  gSimpleInitTokenSpaceGuid.PcdGuiDefaultDPI|420
-
   gRenegadePkgTokenSpaceGuid.PcdDeviceVendor|"Xiaomi"
   gRenegadePkgTokenSpaceGuid.PcdDeviceProduct|"Poco F3"
   gRenegadePkgTokenSpaceGuid.PcdDeviceCodeName|"alioth"
